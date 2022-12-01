@@ -11,7 +11,7 @@ def get_input():
             yield line
 
 
-def q1():
+def get_count():
     count = []
     cur_total = 0
     for line in get_input():
@@ -21,20 +21,17 @@ def q1():
             continue
         cur_total += int(line)
     count.append(cur_total)
-    return max(count)
+    return sorted(count)
+
+
+def q1():
+    count = get_count()
+    return count[-1]
 
 
 def q2():
-    count = []
-    cur_total = 0
-    for line in get_input():
-        if line == "\n":
-            count.append(cur_total)
-            cur_total = 0
-            continue
-        cur_total += int(line)
-    count.append(cur_total)
-    return sum(sorted(count)[-3:])
+    count = get_count()
+    return sum(count[-3:])
 
 
 def main():
