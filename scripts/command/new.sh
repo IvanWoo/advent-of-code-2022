@@ -21,7 +21,7 @@ INPUT_FILE = ROOT_DIR / "input.txt"
 def get_input():
     with fileinput.input(files=(INPUT_FILE)) as f:
         for line in f:
-            yield line
+            yield line.strip()
 def q1():
     pass
 def q2():
