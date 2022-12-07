@@ -34,6 +34,9 @@ def build_file_tree():
                 name = exp[2]
                 if name == "..":
                     curr_tree = curr_tree.parent
+                elif name == "/":
+                    curr_tree.children.append(NaryNode(name=name))
+                    curr_tree = curr_tree.children[0]
                 else:
                     for child in curr_tree.children:
                         if child.name == name:
