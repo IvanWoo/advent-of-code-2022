@@ -13,12 +13,7 @@ def get_input():
             yield line.strip().split()
 
 
-DIR_MAPPING = {
-    "R": (1, 0),
-    "L": (-1, 0),
-    "U": (0, 1),
-    "D": (0, -1),
-}
+DIR_MAPPING = dict(R=(1, 0), L=(-1, 0), U=(0, 1), D=(0, -1))
 
 
 def move(pos, dir_v):
@@ -61,14 +56,12 @@ def q2():
         if dist < 4:
             # no move
             return tail
-        debug = []
         res = tail
         min_dist = dist
         for dx, dy in product([-1, 0, 1], repeat=2):
             tx, ty = tail
             new_tail = tx + dx, ty + dy
             new_dist = distance(head, new_tail)
-            debug.append((new_tail, new_dist))
             if new_dist < min_dist:
                 min_dist = new_dist
                 res = new_tail
@@ -79,17 +72,12 @@ def q2():
     visited = set([(0, 0)])
     for dir, step in get_input():
         dir_v = DIR_MAPPING[dir]
-
         for _ in range(int(step)):
+            knots[0] = move(knots[0], dir_v)
             for i in range(total - 1):
                 head, tail = knots[i], knots[i + 1]
-                if i == 0:
-                    head = move(head, dir_v)
-                tail = get_new_tail(head, tail)
-                if i == total - 2:
-                    visited.add(tail)
-                knots[i] = head
-                knots[i + 1] = tail
+                knots[i + 1] = get_new_tail(head, tail)
+            visited.add(knots[-1])
     return len(visited)
 
 
