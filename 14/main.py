@@ -97,14 +97,11 @@ def q2():
     ys = [y for _, y in boundary]
     min_x, max_x = min(xs), max(xs)
     max_y = max(ys)
-    # for padding in range(10, 200, 10):
-    # after testing, 140 is the sweet spot
-    for padding in [140]:
-        new_boundary = set(boundary)
-        for x in range(min_x - padding, max_x + padding):
-            new_boundary.add((x, max_y + 2))
-        sands = simulate(start, new_boundary)
-        # print(padding, len(sands))
+    padding = max_y * 2
+    new_boundary = set(boundary)
+    for x in range(min_x - padding, max_x + padding):
+        new_boundary.add((x, max_y + 2))
+    sands = simulate(start, new_boundary)
     return len(sands)
 
 
